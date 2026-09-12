@@ -1,0 +1,53 @@
+* { box-sizing: border-box; }
+:root { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:#1f2937; background:#f3f4f6; }
+html,body { margin:0; min-height:100%; background:#f3f4f6; }
+body { padding-bottom:env(safe-area-inset-bottom); }
+.app-header { padding:max(18px,env(safe-area-inset-top)) 20px 14px; background:rgba(255,255,255,.96); border-bottom:1px solid #e5e7eb; position:sticky; top:0; z-index:10; backdrop-filter:blur(10px); }
+.app-header h1 { font-size:22px; margin:0; }
+.app-header p { margin:3px 0 0; color:#6b7280; font-size:13px; }
+.app-shell { width:min(920px,100%); margin:0 auto; padding:16px; }
+.panel { background:#fff; border-radius:16px; padding:16px; margin-bottom:16px; box-shadow:0 1px 8px rgba(0,0,0,.06); }
+.panel h2 { font-size:17px; margin:0 0 14px; }
+.file-button { display:block; margin-top:10px; padding:13px 15px; text-align:center; border-radius:12px; background:#111827; color:#fff; font-weight:700; cursor:pointer; }
+.file-button input { display:none; }
+.filename { margin:7px 2px 10px; color:#6b7280; font-size:13px; overflow-wrap:anywhere; }
+.status { padding:11px 12px; border-radius:11px; margin:10px 0 12px; font-size:13px; line-height:1.5; }
+.status.idle { background:#f3f4f6; color:#4b5563; }
+.status.working { background:#fff7ed; color:#9a3412; }
+.status.success { background:#ecfdf5; color:#166534; }
+.status.error { background:#fef2f2; color:#991b1b; }
+.control-group { padding:12px; background:#f9fafb; border-radius:12px; margin:12px 0; }
+.control-label-row { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:8px; }
+#cleanupRange { width:100%; }
+.range-labels { display:flex; justify-content:space-between; color:#6b7280; font-size:11px; }
+.preview-card { width:min(390px,100%); }
+.preview-title { color:#4b5563; font-size:12px; margin-bottom:6px; }
+.checkerboard { position:relative; overflow:hidden; border-radius:12px; min-height:230px; background-color:#fff;
+background-image:linear-gradient(45deg,#e5e7eb 25%,transparent 25%),linear-gradient(-45deg,#e5e7eb 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#e5e7eb 75%),linear-gradient(-45deg,transparent 75%,#e5e7eb 75%);
+background-size:24px 24px; background-position:0 0,0 12px,12px -12px,-12px 0; }
+#cutoutPreview { display:block; width:100%; height:300px; object-fit:contain; }
+.preview-empty { position:absolute; inset:0; display:grid; place-items:center; color:#6b7280; font-size:13px; }
+.canvas-wrap { position:relative; width:100%; background:#111827; border-radius:14px; overflow:hidden; touch-action:none; }
+#canvas {
+  display:block;
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:70vh;
+  margin:0 auto;
+  touch-action:none;
+}
+.empty-message { position:absolute; inset:0; display:grid; place-items:center; color:#d1d5db; font-size:15px; pointer-events:none; }
+.toolbar { display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:12px; }
+button { appearance:none; border:0; border-radius:11px; padding:12px 10px; font-weight:700; font-size:14px; background:#e5e7eb; color:#111827; }
+button:active { transform:translateY(1px); }
+button.primary { width:100%; background:#111827; color:#fff; font-size:16px; }
+button:disabled { opacity:.4; }
+.download-link { display:block; margin-top:12px; padding:13px; border-radius:12px; text-align:center; text-decoration:none; background:#e5e7eb; color:#111827; font-weight:700; }
+.saved-preview { margin-top:12px; border-radius:12px; overflow:hidden; background:#111827; }
+.saved-preview img { display:block; width:100%; height:auto; }
+.help { margin-top:12px; padding:12px; border-radius:12px; background:#f9fafb; color:#4b5563; line-height:1.55; font-size:13px; }
+.info-text,.small,.technical { color:#6b7280; font-size:12px; line-height:1.6; }
+.hidden { display:none; }
+footer { text-align:center; color:#6b7280; font-size:12px; padding:4px 16px max(24px,env(safe-area-inset-bottom)); }
+@media (min-width:720px) { .toolbar { grid-template-columns:repeat(6,1fr); } .panel { padding:20px; } }

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="あとから自撮り">
+  <title>あとから自撮り v0.3</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation@0.1/selfie_segmentation.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>あとから自撮り</h1>
+      <p>v0.3.2 ・ドラッグ座標修正版 / 輪郭補正 / PWA</p>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <section class="panel">
+      <h2>1. 風景写真</h2>
+      <label class="file-button"><span>風景写真を選ぶ</span>
+        <input id="backgroundInput" type="file" accept="image/*">
+      </label>
+      <div id="backgroundName" class="filename">未選択</div>
+    </section>
+
+    <section class="panel">
+      <h2>2. 人物写真を自動切り抜き</h2>
+      <label class="file-button"><span>人物写真を選ぶ</span>
+        <input id="personInput" type="file" accept="image/*">
+      </label>
+      <div id="personName" class="filename">未選択</div>
+      <div id="segmentationStatus" class="status idle">人物写真を選ぶと、自動で背景を消します。</div>
+
+      <div class="control-group">
+        <div class="control-label-row">
+          <label for="cleanupRange"><strong>輪郭補正</strong></label>
+          <span id="cleanupValue">標準</span>
+        </div>
+        <input id="cleanupRange" type="range" min="0" max="3" step="1" value="2">
+        <div class="range-labels"><span>そのまま</span><span>強め</span></div>
+        <p class="small">白い縁が残る場合は右へ。髪や服の端が削れすぎる場合は左へ調整してください。</p>
+      </div>
+
+      <div class="preview-card">
+        <div class="preview-title">切り抜き結果</div>
+        <div class="checkerboard">
+          <canvas id="cutoutPreview" width="500" height="500"></canvas>
+          <div id="previewEmpty" class="preview-empty">まだありません</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>3. 合成</h2>
+      <div class="canvas-wrap">
+        <canvas id="canvas" width="1200" height="900"></canvas>
+        <div id="emptyMessage" class="empty-message">まず風景写真を選んでください</div>
+      </div>
+
+      <div class="toolbar">
+        <button id="smallerBtn" type="button">人物を小さく</button>
+        <button id="largerBtn" type="button">人物を大きく</button>
+        <button id="leftBtn" type="button">左へ</button>
+        <button id="rightBtn" type="button">右へ</button>
+        <button id="centerBtn" type="button">中央へ</button>
+        <button id="resetBtn" type="button">リセット</button>
+      </div>
+      <div class="help">人物をドラッグして移動できます。iPhone / iPadでは2本指のピンチで拡大縮小できます。</div>
+    </section>
+
+    <section class="panel">
+      <h2>4. 保存</h2>
+      <button id="saveBtn" class="primary" type="button" disabled>JPEG画像を作成</button>
+      <a id="downloadLink" class="download-link hidden" download="selfie-composite.jpg">完成画像を開く / 保存</a>
+      <div id="savedPreviewWrap" class="saved-preview hidden"><img id="savedPreview" alt="完成画像プレビュー"></div>
+      <p class="small">iPhone / iPadでは、完成画像を開いて共有メニューから「画像を保存」できます。</p>
+    </section>
+
+    <section class="panel">
+      <h2>ホーム画面から起動</h2>
+      <p class="info-text">GitHub PagesなどHTTPSで公開したあと、iPhoneのSafariで開き、共有ボタン →「ホーム画面に追加」とすると、アプリ風に起動できます。</p>
+      <div id="pwaStatus" class="status idle">PWA状態を確認しています…</div>
+    </section>
+
+    <section class="panel technical">
+      <h2>プライバシー</h2>
+      <p>この試作版には、選択した写真を外部サーバーへアップロードする処理はありません。人物切り抜きはブラウザ内で行います。MediaPipeのライブラリとモデルの読み込みにはインターネット接続が必要です。</p>
+    </section>
+  </main>
+
+  <footer>あとから自撮り v0.3.2</footer>
+  <script src="app.js"></script>
+</body>
+</html>
